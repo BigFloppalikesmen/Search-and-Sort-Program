@@ -1,6 +1,7 @@
 #BINARY SEARCH
 import os
-
+from colorama import Fore, Style, init
+init(autoreset=True)
 #Imports required for it to work. 
     # import program_to_capitalize_a_file
     # import bubblesortprogram
@@ -16,26 +17,29 @@ def ensure_folder(folder_name):
 def get_path_in_folder(folder, filename):
     return os.path.join(folder, filename)
 
-def binarySearch(filename,target):
+def binarySearch(filename, target):
     try:
-        with open(filename,"r") as file:
-            global items
+        with open(filename, "r") as file:
             items = file.read().splitlines()
         lowerPos = 0
-        upperPos = len(items)-1
+        upperPos = len(items) - 1
         found = False
-        while(lowerPos<=upperPos and not found):
-            mid = (lowerPos + upperPos)//2
+        while lowerPos <= upperPos and not found:
+            mid = (lowerPos + upperPos) // 2
             if items[mid] == target:
                 found = True
-                print(f"{target} was found")
+                print(Fore.GREEN + f"{target} was found.")
+            elif target < items[mid]:
+                upperPos = mid - 1
             else:
-                if target < items[mid]:
-                    upperPos = mid-1
-                else:
-                    lowerPos = mid + 1
+                lowerPos = mid + 1
+        if not found:
+            print(Fore.RED + f"{target} was NOT found in the list.")
+        return found
     except FileNotFoundError:
-        print(f"{filename} was not found")   
+        print(Fore.RED + f"{filename} was not found")
+        print(Style.RESET_ALL)
+        return False
 
 
 
@@ -60,10 +64,10 @@ def binarySearch(filename,target):
     #     if not os.path.dirname(lowercased_file):
     #         os.replace(lowercased_file, lowercased_file_path)
     #         lowercased_file = lowercased_file_path
-    # else:
-    #     # Overwrote original, so copy to folder for consistency
-    #     os.replace(file, lowercased_file_path)
-    #     lowercased_file = lowercased_file_path
+    #     else:
+    #         # Overwrote original, so copy to folder for consistency
+    #         os.replace(file, lowercased_file_path)
+    #         lowercased_file = lowercased_file_path
 
     # print("For Binary Search to take place, the list must be sorted...")
     # sort_or_no = input("Would you like to continue with a bubble sort algorithm?:(y/n) ").lower()

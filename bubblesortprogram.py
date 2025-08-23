@@ -1,4 +1,6 @@
 import time
+from colorama import Fore, Style, init
+init(autoreset=True)
 
 def bubbleSort(arr):
     start = time.time()
@@ -21,7 +23,7 @@ def readFile(filename):
             items = file.read().splitlines()
             return items
     except FileNotFoundError:
-        print(f"Bruh, '{filename}' not found.")
+        print(Fore.RED + f"Bruh, '{filename}' not found.")
         return None
 
 def writeFile(filename, data):
